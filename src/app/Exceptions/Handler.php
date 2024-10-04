@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -49,6 +50,13 @@ class Handler extends ExceptionHandler
                 'ok' => false,
                 'err' => $e->getMessage(),
             ], 404);
+        });
+
+        $this->renderable(function (InvalidArgumentException $e, $request){
+            return response()->json([
+                'ok' => false,
+                'err' => 'Invalid argument.',
+            ], 500);
         });
 
         $this->renderable(function (\Exception $e, $request){

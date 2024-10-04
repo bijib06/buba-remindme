@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PathRequest;
 use App\Http\Requests\ReminderRequest;
+use App\Http\Requests\ReminderUpdateRequest;
 use App\Http\Resources\ReminderCollection;
 use App\Http\Resources\ReminderResource;
 use App\Models\Reminder;
+use App\Utilities\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +38,7 @@ class ReminderController extends Controller
      */
     public function store(Request $request)
     {
-        //$request->validate($request->rules());
+        $request->validate((new ReminderRequest)->rules());
         try {
             $reminder = Reminder::create([
                 'title' => $request->title,
@@ -58,7 +60,7 @@ class ReminderController extends Controller
      */
     public function show(Request $request, $id)
     {
-        //$request->validate($request->rules());
+        $request->validate((new PathRequest())->rules());
 
         try {
             $reminder = Reminder::findOrFail($id);
@@ -78,7 +80,8 @@ class ReminderController extends Controller
      */
     public function update(Request $request, $id)
     {
-       // $request->validate($request->rules());
+
+        $request->validate((new ReminderUpdateRequest())->rules());
         try {
             $reminder = Reminder::findOrFail($id);
             $reminder->title = $request->title;
@@ -99,7 +102,8 @@ class ReminderController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        //$request->validate($request->rules());
+
+        $request->validate((new PathRequest())->rules());
 
         try {
             Reminder::destroy($id);

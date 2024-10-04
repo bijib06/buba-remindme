@@ -56,17 +56,4 @@ class SessionController extends Controller
         return $this->sendResponse($result, Response::HTTP_OK);
     }
 
-    /**
-     * Destroy an authenticated session.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function logout(Request $request)
-    {
-        //$request->user()->currentAccessToken()->delete();
-        Auth::guard('web')->logout();
-
-        return $this->sendResponse(null, Response::HTTP_OK);
-    }
 }

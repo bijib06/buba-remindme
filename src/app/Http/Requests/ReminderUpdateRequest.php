@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReminderRequest extends FormRequest
+class ReminderUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -12,6 +12,11 @@ class ReminderRequest extends FormRequest
     public function authorize(): bool
     {
         return false;
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge(['id' => $this->route()->parameter('id')]);
     }
 
     /**
@@ -22,6 +27,7 @@ class ReminderRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id' => ['required', 'integer', 'min:1', 'max:9999999'],
             'title' => ['required', 'string', 'min:2', 'max:255'],
             'description' => ['required', 'string', 'min:2', 'max:255'],
             'remind_at' => ['required', 'integer'],
