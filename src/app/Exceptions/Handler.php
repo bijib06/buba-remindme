@@ -55,7 +55,6 @@ class Handler extends ExceptionHandler
             return response()->json([
                 'ok' => false,
                 'err' => $e->getMessage(),
-                'msg' => $e->getTraceAsString(),
             ], 500);
         });
 
