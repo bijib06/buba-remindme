@@ -60,7 +60,6 @@ class ReminderController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $request->validate((new PathRequest())->rules());
 
         try {
             $reminder = Reminder::findOrFail($id);
@@ -81,7 +80,7 @@ class ReminderController extends Controller
     public function update(Request $request, $id)
     {
 
-        $request->validate((new ReminderUpdateRequest())->rules());
+        $request->validate((new ReminderRequest())->rules());
         try {
             $reminder = Reminder::findOrFail($id);
             $reminder->title = $request->title;
@@ -102,8 +101,6 @@ class ReminderController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-
-        $request->validate((new PathRequest())->rules());
 
         try {
             Reminder::destroy($id);

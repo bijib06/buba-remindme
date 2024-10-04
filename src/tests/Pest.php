@@ -10,6 +10,7 @@
 | need to change it using the "uses()" function to bind a different classes or traits.
 |
 */
+use App\Models\User;
 
 uses(
     Tests\TestCase::class,
@@ -45,4 +46,9 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+function login($user = null)
+{
+    return test()->actingAs($user ?? User::factory()->create());
 }
