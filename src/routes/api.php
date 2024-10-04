@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\TokenAbility;
 use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ Route::post('/session', [SessionController::class, 'login'])
                 ->name('login');
 
 Route::put('/session', [SessionController::class, 'refreshToken'])
-                ->middleware('guest')
+                ->middleware('auth:sanctum', 'ability:' . TokenAbility::ISSUE_ACCESS_TOKEN->value)
                 ->name('refresh-token');
 
 Route::post('/logout', [SessionController::class, 'logout'])
@@ -33,7 +34,7 @@ Route::post('/logout', [SessionController::class, 'logout'])
                 ->name('logout');
                 
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value])->group(function () {
     Route::controller(ReminderController::class)->group(function () {
         Route::get('/reminders', 'index')->name('reminders.index');
         Route::get('/reminders/{id}', 'show')->name('reminders.show');

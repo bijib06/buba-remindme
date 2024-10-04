@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TokenAbility;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
@@ -28,8 +30,11 @@ class SessionController extends Controller
         {
             $request->authenticate();
 
-            $success['access_token'] =  $request->user()->createToken('MySession')->plainTextToken;
-            $success['refresh_token'] = null;
+            $accessToken = $request->user()->createToken('access_token', [TokenAbility::ACCESS_API->value], Carbon::now()->addMinutes(config('sanctum.ac_expiration')));
+            $refreshToken = $request->user()->createToken('refresh_token', [TokenAbility::ISSUE_ACCESS_TOKEN->value], Carbon::now()->addMinutes(config('sanctum.rt_expiration')));
+
+            $success['access_token'] =  $accessToken->plainTextToken;
+            $success['refresh_token'] = $refreshToken->plainTextToken;
             $success['user'] = new UserResource($request->user());
 
             return $this->sendResponse($success, Response::HTTP_OK);
@@ -44,13 +49,11 @@ class SessionController extends Controller
      * @param  \App\Http\Requests\Auth\LoginRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function refreshToken(LoginRequest $request)
+    public function refreshToken(Request $request)
     {
-        $request->authenticate();
-
-        $request->session()->regenerate();
-
-        return response()->noContent();
+        $accessToken = $request->user()->createToken('access_token', [TokenAbility::ACCESS_API->value], Carbon::now()->addMinutes(config('sanctum.ac_expiration')));
+        $result['access_token'] = $accessToken->plainTextToken;
+        return $this->sendResponse($result, Response::HTTP_OK);
     }
 
     /**
