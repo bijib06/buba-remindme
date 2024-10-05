@@ -47,15 +47,7 @@
             </li>
             <li>
               <div class="btn-group">
-                <button type="button" class="btn btn-logged" data-toggle="dropdown">
-                  <img src="images/photos/loggeduser.png" alt="" />
-                  Elen Adarna
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu pull-right">
-                  
-                  <li><a href="signin.html"><i class="glyphicon glyphicon-log-out"></i> Log Out</a></li>
-                </ul>
+                
               </div>
             </li>
           </ul>
@@ -91,6 +83,7 @@
             <h5 class="sidebar-title">Favorites</h5>
             <ul class="nav nav-pills nav-stacked nav-quirk">
               <li><a href="/reminders/create"><i class="fa fa-home"></i> <span>Create Reminder</span></a></li>
+              <li><a href="/logout"><i class="glyphicon glyphicon-log-out"></i> Log Out</a></li>
             </ul>
 
           </div><!-- tab-pane -->

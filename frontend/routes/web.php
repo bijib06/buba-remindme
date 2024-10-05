@@ -25,7 +25,7 @@ Route::put('/session', [LoginController::class, 'refreshToken'])
                 ->middleware('checkSession')
                 ->name('refresh-token');
 
-Route::post('/logout', [LoginController::class, 'logout'])
+Route::get('/logout', [LoginController::class, 'logout'])
                 ->middleware('guest')
                 ->name('logout');
                 

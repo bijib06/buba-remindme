@@ -9,11 +9,21 @@
 <div>
 <h1>List Of Reminders</h1>
 
+@if(Session::has('success'))
+
+<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <strong><span class="fa fa-check-circle"></span></strong>
+
+    <strong> {{ Session::get('success') }}</strong>
+</div>
+@endif
+
 @foreach ($reminders as $reminder)
 
     <div class="panel col-md-8">
         <div class="panel-heading">
-          
+        
         </div>
         
         <div class="panel-body people-info">

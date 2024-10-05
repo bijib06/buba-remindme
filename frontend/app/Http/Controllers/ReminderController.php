@@ -19,22 +19,24 @@ class ReminderController extends Controller
     public function index()
     {
         $access_token = session()->get("access_token");
-        //dd($access_token);
+
         $response = Http::withHeaders(['Authorization' => "Bearer {$access_token}"])->get("{$this->baseUrl}/reminders?limit=5");
-        //dd($response->json());
+   
         if($response->getStatusCode() >= 400)
         {
             if($response->getStatusCode() == Response::HTTP_UNAUTHORIZED)
             {
                 Utility::refreshToken();
-                return redirect()->to('/')->with("error", "Session expired, please log in.");            
+                $access_token = session()->get("access_token");
+                $response = Http::withHeaders(['Authorization' => "Bearer {$access_token}"])->get("{$this->baseUrl}/reminders?limit=5");   
+                if($response->getStatusCode() >= 400)   
+                return redirect()->to('/')->with("error", "Session expired, please log in.");        
             }else{
                 return redirect()->back()->with("error","Request failed with error code: ".$response->getStatusCode());
             }
         }
        
         $reminders = $response->json()["data"];
-        //dd($reminders);
         return view("reminders", compact("reminders"));
     }
 
@@ -47,21 +49,27 @@ class ReminderController extends Controller
     {
 
         $access_token = session()->get("access_token");
-        //dd($access_token);
         $response = Http::withHeaders(['Authorization' => "Bearer {$access_token}"])->post("{$this->baseUrl}/reminders",[
             'title' => $request->title,
             'description' => $request->description,
             'remind_at' => $request->remind_at,
             'event_at' => $request->event_at,
         ]);
-        //dd($response->json());
 
         if($response->getStatusCode() >= 400)
         {
             if($response->getStatusCode() == Response::HTTP_UNAUTHORIZED)
             {
                 Utility::refreshToken();
-                return redirect()->to('/')->with("error", "Session expired, please log in.");            
+                $access_token = session()->get("access_token");
+                $response = Http::withHeaders(['Authorization' => "Bearer {$access_token}"])->post("{$this->baseUrl}/reminders",[
+                    'title' => $request->title,
+                    'description' => $request->description,
+                    'remind_at' => $request->remind_at,
+                    'event_at' => $request->event_at,
+                ]);          
+                if($response->getStatusCode() >= 400)   
+                return redirect()->to('/')->with("error", "Session expired, please log in."); 
             }else{
                 return redirect()->back()->with("error","Request failed with error code: ".$response->getStatusCode());
             }
@@ -79,7 +87,10 @@ class ReminderController extends Controller
             if($response->getStatusCode() == Response::HTTP_UNAUTHORIZED)
             {
                 Utility::refreshToken();
-                return redirect()->to('/')->with("error", "Session expired, please log in.");            
+                $access_token = session()->get("access_token");
+                $response = Http::withHeaders(['Authorization' => "Bearer {$access_token}"])->get("{$this->baseUrl}/reminders/{$id}");  
+                if($response->getStatusCode() >= 400)   
+                return redirect()->to('/')->with("error", "Session expired, please log in.");         
             }else{
                 return redirect()->back()->with("error","Request failed with error code: ".$response->getStatusCode());
             }
@@ -99,7 +110,10 @@ class ReminderController extends Controller
             if($response->getStatusCode() == Response::HTTP_UNAUTHORIZED)
             {
                 Utility::refreshToken();
-                return redirect()->to('/')->with("error", "Session expired, please log in.");            
+                $access_token = session()->get("access_token");
+                $response = Http::withHeaders(['Authorization' => "Bearer {$access_token}"])->get("{$this->baseUrl}/reminders/{$id}");   
+                if($response->getStatusCode() >= 400)   
+                return redirect()->to('/')->with("error", "Session expired, please log in."); 
             }else{
                 return redirect()->back()->with("error","Request failed with error code: ".$response->getStatusCode());
             }
@@ -124,7 +138,15 @@ class ReminderController extends Controller
             if($response->getStatusCode() == Response::HTTP_UNAUTHORIZED)
             {
                 Utility::refreshToken();
-                return redirect()->to('/')->with("error", "Session expired, please log in.");            
+                $access_token = session()->get("access_token");
+                $response = Http::withHeaders(['Authorization' => "Bearer {$access_token}"])->put("{$this->baseUrl}/reminders/{$id}",[
+                    'title' => $request->title,
+                    'description' => $request->description,
+                    'remind_at' => $request->remind_at,
+                    'event_at' => $request->event_at,
+                ]);          
+                if($response->getStatusCode() >= 400)   
+                return redirect()->to('/')->with("error", "Session expired, please log in."); 
             }else{
                 return redirect()->back()->with("error","Request failed with error code: ".$response->getStatusCode());
             }
@@ -143,7 +165,10 @@ class ReminderController extends Controller
             if($response->getStatusCode() == Response::HTTP_UNAUTHORIZED)
             {
                 Utility::refreshToken();
-                return redirect()->to('/')->with("error", "Session expired, please log in.");            
+                $access_token = session()->get("access_token");
+                $response = Http::withHeaders(['Authorization' => "Bearer {$access_token}"])->delete("{$this->baseUrl}/reminders/{$id}");  
+                if($response->getStatusCode() >= 400)   
+                return redirect()->to('/')->with("error", "Session expired, please log in.");           
             }else{
                 return redirect()->back()->with("error","Request failed with error code: ".$response->getStatusCode());
             }

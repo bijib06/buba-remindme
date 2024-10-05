@@ -35,3 +35,18 @@ We will evaluate your submission based on these criteria:
 > If you have any questions regarding this challenge, please don't hesitate to open an issue in this repository.
 
 *** Forked and modified from: https://github.com/riandyrn/remindme-laravel ***
+
+
+## Solution
+
+I used another Laravel application to as the frontend, to consume the RemindMe API. I was having dependency issues up till this afternoon with the Node and NPM. I didn't use containerization since its not part of the instructions. So I created a laravel app to connect and consume it.
+
+The API runs on port 8000 and the laravel frontend app on port 8080 or any available port.
+
+I defined a seeder for the two users. You can seed the database after starting the server with *** php artisan db:seed ***
+
+I have a scheduler that checks the database for reminders whose remind time is due and push an email to a queue. So you need to start both the default queue and the scheduler. 
+
+*** php artisan queue:work ***
+
+*** php artisan schedule:run ***
