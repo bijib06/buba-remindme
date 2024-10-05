@@ -3,24 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 
 class LoginController extends Controller
 {
-    private $client = null;
     private $baseUrl = null;
     public function __construct(){
-        $this->client = new Client();
         $this->baseUrl = config("BASE_URL", "http://localhost:8000/api");
     }
     
     public function login(Request $request)
     {
-        // $request->validate([
-        //     'email' => ['required', 'string', 'email:strict', 'max:255'],
-        //     'password' => ['required', 'max:20', 'string'],
-        // ]);
 
         try
         {

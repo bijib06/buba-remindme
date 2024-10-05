@@ -10,8 +10,10 @@
   <title>Quirk Responsive Admin Templates</title>
 
   <link rel="stylesheet" href="{{asset('assets/lib/fontawesome/css/font-awesome.css')}}">
-
+  <link rel="stylesheet" href="{{asset('assets/lib/jquery-ui/jquery-ui.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/lib/timepicker/jquery.timepicker.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/quirk.css')}}">
+  
 
   <script src="{{asset('assets/lib/modernizr/modernizr.js')}}"></script>
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

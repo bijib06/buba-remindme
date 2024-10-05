@@ -33,8 +33,10 @@ Route::post('/logout', [LoginController::class, 'logout'])
 Route::middleware('checkSession')->group(function () {
     Route::controller(ReminderController::class)->group(function () {
         Route::get('/reminders', 'index')->name('reminders.index');
+        Route::get('/reminders/create', 'create')->name('reminders.create');
         Route::get('/reminders/{id}', 'show')->name('reminders.show');
         Route::post('/reminders', 'store')->name('reminders.store');
+        Route::get('/reminders/edit/{id}', 'edit')->name('reminders.edit');
         Route::put('/reminders/{id}', 'update')->name('reminders.update');
         Route::delete('/reminders/{id}', 'destroy')->name('reminders.delete');
     });

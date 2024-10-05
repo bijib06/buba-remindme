@@ -9,9 +9,8 @@
 
   <title>Reminders</title>
 
-  <link rel="stylesheet" href="{{asset('assets/lib/fontawesome/css/font-awesome.css"')}}>
-  <link rel="stylesheet" href="{{asset('assets/lib/weather-icons/css/weather-icons.css')}}">
-  <link rel="stylesheet" href="{{asset('assets/lib/jquery-toggles/toggles-full.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/lib/fontawesome/css/font-awesome.css"')}}">
+  <link rel="stylesheet" href="{{asset('assets/lib/jquery-ui/jquery-ui.css')}}">
 
   <link rel="stylesheet" href="{{asset('assets/css/quirk.css')}}">
 
@@ -91,9 +90,7 @@
           <div class="tab-pane active" id="mainmenu">
             <h5 class="sidebar-title">Favorites</h5>
             <ul class="nav nav-pills nav-stacked nav-quirk">
-              <li><a href="index.html"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
-              <li><a href="widgets.html"><span class="badge pull-right">10+</span><i class="fa fa-cube"></i> <span>Widgets</span></a></li>
-              <li><a href="maps.html"><i class="fa fa-map-marker"></i> <span>Maps</span></a></li>
+              <li><a href="/reminders/create"><i class="fa fa-home"></i> <span>Create Reminder</span></a></li>
             </ul>
 
           </div><!-- tab-pane -->
@@ -115,10 +112,6 @@
     </div><!-- mainpanel -->
 </section>
 
-<script src="{{asset('assets/lib/jquery/jquery.js')}}"></script>
-<script src="{{asset('assets/lib/jquery-ui/jquery-ui.js')}}"></script>
-<script src="{{asset('assets/lib/bootstrap/js/bootstrap.js')}}"></script>
-<script src="{{asset('assets/lib/jquery-toggles/toggles.js')}}"></script>
 
 <script src="{{asset('assets/js/quirk.js')}}"></script>
 

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Http;
 
 class Utility {
 
-    public function refreshToken()
+    public static function refreshToken()
     {
         $refresh_token = session()->get("refresh_token");
         $response = Http::withHeaders(['Authorization' => "Bearer {$refresh_token}"])->put("http://localhost:8000/api/session", []);
