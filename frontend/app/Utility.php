@@ -1,0 +1,22 @@
+<?php
+
+namespace App;
+use Illuminate\Support\Facades\Http;
+
+class Utility {
+
+    public function refreshToken()
+    {
+        $refresh_token = session()->get("refresh_token");
+        $response = Http::withHeaders(['Authorization' => "Bearer {$refresh_token}"])->put("http://localhost:8000/api/session", []);
+
+        if($response->getStatusCode() != 200){
+            session()->forget("uauth");
+            session()->forget("access_token");
+            session()->forget("refresh_token");
+            return redirect()->to("/");
+        }
+        $response = $response->json();
+        session()->put('access_token', $response['data']['access_token']);
+    }
+}
